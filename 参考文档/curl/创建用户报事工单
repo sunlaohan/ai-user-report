@@ -1,0 +1,19 @@
+curl 'https://qa-gw.meos.net.cn/fm-workorder-server/work/order/report/add' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9' \
+  -H 'content-type: application/json' \
+  -H 'group-code: TYXN' \
+  -H 'groupcode: TYXN' \
+  -H 'origin: https://qa.meos.center' \
+  -H 'priority: u=1, i' \
+  -H 'project-id: Pj9909990007' \
+  -H 'referer: https://qa.meos.center/' \
+  -H 'sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'token: eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjE2OTIzMjIyNDM2NTgiLCJhY2NvdW50TmFtZSI6IuWtmeejiiIsInBob25lIjoiMTM4ODA1ODI2NDkiLCJpc3MiOiJlbXMiLCJqdGkiOiIzY2NlMDIyMi0zNDZjLTQ2ZmYtYWNiMy1jMGUxNGY1ODFkOGQifQ.nQnnGZatyyWTiMbIyzR4Svkxer0PP0mSu03-6Q-uPhs' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \
+  --data-raw '{"projectId":"Pj9909990007","reportIssueType":"5bf46aef58b242af83986c23944acfcd","reportObj":{"buildingId":"Bd61011220109396782598344e14b546aaa58430fddd","floorId":"Fl61011220101bc101e0978941c68884a1eacaccf322","objId":"SFT-01.09.04","objName":"储藏室","objType":"spaceclass","positionName":"2#楼/B3/储藏室","spaceId":null,"spaceType":"SFT-01.09.04"},"description":"电脑弄坏了","photos":[],"videos":[],"appointmentTime":"","contacts":"孙师傅","phone":"13880582649","orderFromType":"manual","creatorId":"13880582649","creatorName":"13880582649","spaceType":"SFT-01.09.04","createChannel":"YHBS-ZXBS"}'

@@ -1,0 +1,48 @@
+{
+    "personIds": [
+        "string"
+    ],
+    "positionList": [
+        "string"
+    ],
+    "spaceTypeList": [
+        "string"
+    ],
+    "repairProblemTypes": [
+        "string"
+    ],
+    "orderRevisitStatus": [
+        "REVISIT"
+    ],
+    "orderReporterScores": [
+        "ONE"
+    ],
+    "actionStatus": [
+        "UN_ACTION"
+    ],
+    "resolveStatus": [
+        "UN_RESOLVED"
+    ],
+    "orderStatus": [
+        "GRAB_ORDERS"
+    ],
+    "problemNatures": [
+        "REPORT_REPAIR"
+    ],
+    "processMajorCodes": [
+        "string"
+    ],
+    "positionAsserts": [
+        "string"
+    ],
+    "timeFilterType": "CREATE_TIME",
+    "startTime": "2019-08-24T14:15:22.123Z",
+    "endTime": "2019-08-24T14:15:22.123Z",
+    "keywordType": "PROBLEM_DESC",
+    "keyword": "string",
+    "delay": true,
+    "orderField": "string",
+    "orderBy": "string",
+    "pageNum": 0,
+    "pageSize": 0
+}

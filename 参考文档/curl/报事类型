@@ -1,0 +1,19 @@
+curl 'https://qa-gw.meos.net.cn/fm-workorder-server/report/issue/type/tree-search' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9' \
+  -H 'content-type: application/json' \
+  -H 'group-code: TYXN' \
+  -H 'groupcode: TYXN' \
+  -H 'origin: https://qa.meos.center' \
+  -H 'priority: u=1, i' \
+  -H 'project-id: Pj9909990007' \
+  -H 'referer: https://qa.meos.center/' \
+  -H 'sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'token: eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjE2OTIzMjIyNDM2NTgiLCJhY2NvdW50TmFtZSI6IuWtmeejiiIsInBob25lIjoiMTM4ODA1ODI2NDkiLCJpc3MiOiJlbXMiLCJqdGkiOiJlN2EwZGQ4ZS0xNzUxLTQyMDctOTIxOS04YjRjMDZmZGI1MmEifQ._BGtMGVQJ552UDWRKRFF7xm21fD5AdCnCBryYpJvO0c' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \
+  --data-raw '{"name":"","problemNatureCodes":["ASSISTANCE_NEED","REPORT_REPAIR"],"projectId":"Pj9909990007","userId":"13880582649","spaceType":"SFT-01.09.00","spaceId":null}'

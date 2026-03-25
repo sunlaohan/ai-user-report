@@ -1,0 +1,19 @@
+curl 'https://qa-gw.meos.net.cn/fm-workorder-server/repair/list-page' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9' \
+  -H 'content-type: application/json' \
+  -H 'group-code: TYXN' \
+  -H 'groupcode: TYXN' \
+  -H 'origin: https://qa.meos.center' \
+  -H 'priority: u=1, i' \
+  -H 'project-id: Pj9909990007' \
+  -H 'referer: https://qa.meos.center/' \
+  -H 'sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"' \
+  -H 'sec-ch-ua-mobile: ?1' \
+  -H 'sec-ch-ua-platform: "Android"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'token: eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjE2OTIzMjIyNDM2NTgiLCJhY2NvdW50TmFtZSI6IuWtmeejiiIsInBob25lIjoiMTM4ODA1ODI2NDkiLCJpc3MiOiJlbXMiLCJqdGkiOiIzY2NlMDIyMi0zNDZjLTQ2ZmYtYWNiMy1jMGUxNGY1ODFkOGQifQ.nQnnGZatyyWTiMbIyzR4Svkxer0PP0mSu03-6Q-uPhs' \
+  -H 'user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36' \
+  --data-raw '{"type":"PROCESSING","size":10,"creatorId":"13880582649"}'

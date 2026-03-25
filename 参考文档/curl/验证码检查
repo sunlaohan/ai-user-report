@@ -1,0 +1,19 @@
+curl 'https://qa.meos.center/mid-permission-server/Spring/MVC/entrance/unifier/checkVerifyCodeService' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9' \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryRglxLUgfI8PzCnbr' \
+  -H 'group-code: TYXN' \
+  -H 'groupcode: TYXN' \
+  -H 'origin: https://qa.meos.center' \
+  -H 'priority: u=1, i' \
+  -H 'project-id: Pj9909990007' \
+  -H 'referer: https://qa.meos.center/tenantrepair/login?groupCode=TYXN&isTenant=false&isRepair=true' \
+  -H 'sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'token: eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjE2OTIzMjIyNDM2NTgiLCJhY2NvdW50TmFtZSI6IuWtmeejiiIsInBob25lIjoiMTM4ODA1ODI2NDkiLCJpc3MiOiJlbXMiLCJqdGkiOiIwMzY1Mzk5My0yYjc5LTQ3NGItYWM1Yy03ZmNlNTA3NzUyYzIifQ._VeBNk7fMfYIBnJnuRFtQxh372kEEH60NPR5UkxaYWM' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' \
+  --data-raw $'------WebKitFormBoundaryRglxLUgfI8PzCnbr\r\nContent-Disposition: form-data; name="jsonString"\r\n\r\n{"verifyCode":"186488","userPhoneNum":"13880582649"}\r\n------WebKitFormBoundaryRglxLUgfI8PzCnbr--\r\n'

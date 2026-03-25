@@ -1,0 +1,17 @@
+curl --location --request POST '/repair/list-page' \
+--header 'groupCode;' \
+--header 'group-code: TYXK' \
+--header 'project-id: Pj9522457558' \
+--header 'token: eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjAwMzcxMjQ5YTIwYzRjNzNiN2QwNTUxMzYzNzFhM2QyIiwiYWNjb3VudE5hbWUiOiLlvKDlloTlm70t5Y2a6ZSQIiwiaXNzIjoiZW1zIiwianRpIjoiMTgyNTQ3YzktNGEwZC00NDZhLTgyMDgtY2ZiMDM0ZjE3YzBlIn0.TPOfCDCs8qLZcB2a9upoyXv5__ed2ha2eCcYSqoMlKQ' \
+--header 'userId: f2e9aa33231a4f1aa3c1fd89dcd8a454' \
+--header 'userName: 13308221455' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "size": 0,
+    "creatorId": "string",
+    "type": "ALL",
+    "creationTime": "2019-08-24T14:15:22.123Z",
+    "workOrderStateEnumList": [
+        "GRAB_ORDERS"
+    ]
+}'

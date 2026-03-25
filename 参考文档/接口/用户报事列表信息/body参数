@@ -1,0 +1,188 @@
+/**
+ * UserReportManageQuery，用户报事管理列表查询query
+ */
+export interface Request {
+    /**
+     * 响应状态
+     */
+    actionStatus?: ActionStatus[];
+    /**
+     * 是否延期(true:是;false:否)
+     */
+    delay?: boolean;
+    /**
+     * 要求解决结束时间
+     */
+    endTime?: Date;
+    /**
+     * 搜索值
+     */
+    keyword?: string;
+    /**
+     * 搜索类型
+     */
+    keywordType?: KeywordType;
+    /**
+     * 排序类型(asc:顺序;desc:倒序。默认desc)
+     */
+    orderBy?: string;
+    /**
+     *
+     * 排序字段(ask_end_time[要求解决时间]）、required_action_time[要求响应时间])、create_time[创建时间]、appointment_time[预约时间]、real_finish_time[实际完成时间]、required_revisit_time[要求回访时间])
+     */
+    orderField?: string;
+    /**
+     * 报事人评价
+     */
+    orderReporterScores?: OrderReporterScore[];
+    /**
+     * 回访状态集合
+     */
+    orderRevisitStatus?: OrderRevisitStatus[];
+    /**
+     * 工单状态
+     */
+    orderStatus?: OrderStatus[];
+    /**
+     * pageNum
+     */
+    pageNum: number;
+    /**
+     * pageSize,默认值：200
+     */
+    pageSize?: number;
+    /**
+     * 执行人id
+     */
+    personIds?: string[];
+    /**
+     * 空间标签id
+     */
+    positionAsserts?: string[];
+    /**
+     * 报事位置：选中的层级id集合
+     */
+    positionList?: string[];
+    /**
+     * 问题性质标签
+     */
+    problemNatures?: ProblemNature[];
+    /**
+     * 处理专业集合
+     */
+    processMajorCodes?: string[];
+    /**
+     * 报事类型集合
+     */
+    repairProblemTypes?: string[];
+    /**
+     * 解决状态
+     */
+    resolveStatus?: ResolveStatus[];
+    /**
+     * 空间功能类型值
+     */
+    spaceTypeList?: string[];
+    /**
+     * 要求解决开始时间
+     */
+    startTime?: Date;
+    /**
+     * 时间类型
+     */
+    timeFilterType?: TimeFilterType;
+    [property: string]: any;
+}
+
+/**
+ * 响应状态
+ */
+export enum ActionStatus {
+    OnTimeAction = "ON_TIME_ACTION",
+    TimedOutAction = "TIMED_OUT_ACTION",
+    TimedOutUnAction = "TIMED_OUT_UN_ACTION",
+    UnAction = "UN_ACTION",
+}
+
+/**
+ * 搜索类型
+ */
+export enum KeywordType {
+    OrderName = "ORDER_NAME",
+    OrderNumber = "ORDER_NUMBER",
+    ProblemDesc = "PROBLEM_DESC",
+    ReportPerson = "REPORT_PERSON",
+    ReportPersonPhone = "REPORT_PERSON_PHONE",
+}
+
+/**
+ * 报事人评价
+ */
+export enum OrderReporterScore {
+    Five = "FIVE",
+    Four = "FOUR",
+    NotEvaluated = "NOT_EVALUATED",
+    One = "ONE",
+    Three = "THREE",
+    Two = "TWO",
+}
+
+/**
+ * 回访状态集合
+ */
+export enum OrderRevisitStatus {
+    ManualShutdown = "MANUAL_SHUTDOWN",
+    NeedFollowUp = "NEED_FOLLOW_UP",
+    Revisit = "REVISIT",
+    TimedOutRevisit = "TIMED_OUT_REVISIT",
+    TimedOutUnRevisit = "TIMED_OUT_UN_REVISIT",
+    UnRevisit = "UN_REVISIT",
+}
+
+/**
+ * 工单状态
+ */
+export enum OrderStatus {
+    AssignmentInProgress = "ASSIGNMENT_IN_PROGRESS",
+    AwaitingForPickup = "AWAITING_FOR_PICKUP",
+    AwaitingPlanReview = "AWAITING_PLAN_REVIEW",
+    CompletedLate = "COMPLETED_LATE",
+    CompletedOnTime = "COMPLETED_ON_TIME",
+    Deleted = "DELETED",
+    GrabOrders = "GRAB_ORDERS",
+    InApproval = "IN_APPROVAL",
+    InExecution = "IN_EXECUTION",
+    TerminatedAbnormally = "TERMINATED_ABNORMALLY",
+}
+
+/**
+ * 问题性质标签
+ */
+export enum ProblemNature {
+    AssistanceNeed = "ASSISTANCE_NEED",
+    Comment = "COMMENT",
+    OptimizationSuggestion = "OPTIMIZATION_SUGGESTION",
+    ReportRepair = "REPORT_REPAIR",
+}
+
+/**
+ * 解决状态
+ */
+export enum ResolveStatus {
+    ResolvedOnTime = "RESOLVED_ON_TIME",
+    TimedOutResolved = "TIMED_OUT_RESOLVED",
+    TimedOutUnResolved = "TIMED_OUT_UN_RESOLVED",
+    UnResolved = "UN_RESOLVED",
+}
+
+/**
+ * 时间类型
+ */
+export enum TimeFilterType {
+    AppointmentTime = "APPOINTMENT_TIME",
+    AskActionTime = "ASK_ACTION_TIME",
+    AskResolveTime = "ASK_RESOLVE_TIME",
+    CreateTime = "CREATE_TIME",
+    RealFinishTime = "REAL_FINISH_TIME",
+    RequiredRevisitTime = "REQUIRED_REVISIT_TIME",
+}

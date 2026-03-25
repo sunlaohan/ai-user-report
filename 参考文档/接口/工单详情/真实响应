@@ -1,0 +1,41 @@
+{
+    "code": "00000",
+    "result": "success",
+    "data": {
+        "workOrderName": "A座11楼办公室物品损坏报修",
+        "orderId": "Wo990999000754021078496747520",
+        "orderNumber": "9909990007-2-20260316-005",
+        "workOrderState": "2",
+        "type": "PROCESSING",
+        "projectName": "禹数2#楼(模拟演示项目）",
+        "reportType": "物品损坏报修",
+        "reportLocation": "A座11楼办公室",
+        "scheduledTime": null,
+        "expectedCompletionTime": "2026-03-17 18:42:58",
+        "reporterName": "13880582649",
+        "contactPhone": "13880582649",
+        "creatorName": "13880582649",
+        "creationTime": "2026-03-16 18:42:58",
+        "updateTime": "2026-03-16 18:42:58",
+        "handlerTime": "2026-03-16 18:42:58",
+        "issueDescription": "电脑屏幕坏了",
+        "descriptionImageUrls": [
+            "1773657797853截屏2024-08-2719.25.12.png"
+        ],
+        "descriptionVideos": [],
+        "executionResult": "",
+        "executionVideos": [],
+        "executionImageUrls": [],
+        "isEvaluated": false,
+        "evaluates": [],
+        "originalInfo": null,
+        "doEvaluate": true
+    },
+    "message": null,
+    "size": null,
+    "current": null,
+    "pages": null,
+    "orders": null,
+    "timestamp": 1773658132676,
+    "traceId": "e7e725769501418692f093290b9abf60.93.17736581326623865"
+}

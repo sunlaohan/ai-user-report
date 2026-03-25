@@ -1,0 +1,92 @@
+{
+    "code": "string",
+    "result": "string",
+    "data": [
+        {
+            "orderId": "string",
+            "problemDesc": "string",
+            "position": "string",
+            "positionAsserts": [
+                {
+                    "code": "string",
+                    "name": "string"
+                }
+            ],
+            "processMajorCode": "string",
+            "processMajorName": "string",
+            "whetherReportException": "REPORT_EXCEPTION",
+            "actionStatus": "UN_ACTION",
+            "resolveStatus": "UN_RESOLVED",
+            "workOrderStatus": "GRAB_ORDERS",
+            "orderCreateTime": "string",
+            "askResolveTime": "string",
+            "requiredActionTime": "string",
+            "closeTime": "string",
+            "executors": [
+                {
+                    "personId": "string",
+                    "personName": "string",
+                    "personPhone": "string",
+                    "departments": [
+                        "string"
+                    ],
+                    "postNames": [
+                        "string"
+                    ],
+                    "workStatus": "ON_WORK",
+                    "subscriberReportPersonTypes": [
+                        "ASSIGNED"
+                    ],
+                    "troubleshootingHandlePersonTypes": [
+                        "ASSIGNED"
+                    ]
+                }
+            ],
+            "problemNature": "REPORT_REPAIR",
+            "hasRemarks": true,
+            "contacts": "string",
+            "phone": "string",
+            "woName": "string",
+            "woNumber": "string",
+            "flowName": "string",
+            "repairProblemName": "string",
+            "appointmentTime": "string",
+            "realFinishTime": "string",
+            "requiredRevisitTime": "string",
+            "score": 0,
+            "evaluationDetail": {
+                "reporterScore": 0,
+                "evaluationTime": "string",
+                "revisitScore": 0,
+                "revisitTime": "string"
+            },
+            "orderRevisitStatus": "REVISIT",
+            "delay": true
+        }
+    ],
+    "message": "string",
+    "count": 0,
+    "total": 0,
+    "size": 0,
+    "current": 0,
+    "pages": 0,
+    "orders": [
+        {
+            "column": "string",
+            "asc": true
+        }
+    ],
+    "timestamp": 0,
+    "extra": {
+        "property1": {},
+        "property2": {}
+    },
+    "traceId": "string",
+    "withColumns": [
+        "string"
+    ],
+    "includeColumns": [
+        "string"
+    ],
+    "cause": "string"
+}

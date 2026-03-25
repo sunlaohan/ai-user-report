@@ -1,0 +1,37 @@
+{
+    "code": "00000",
+    "result": "success",
+    "data": [
+        {
+            "record": "创建工单",
+            "dateTime": "2026-03-16 15:30:40",
+            "isProcessed": true,
+            "isCurrentNode": true
+        },
+        {
+            "record": "师傅已接单",
+            "dateTime": null,
+            "isProcessed": false,
+            "isCurrentNode": false
+        },
+        {
+            "record": "处理中",
+            "dateTime": null,
+            "isProcessed": false,
+            "isCurrentNode": false
+        },
+        {
+            "record": "已完成",
+            "dateTime": null,
+            "isProcessed": false,
+            "isCurrentNode": false
+        }
+    ],
+    "message": null,
+    "size": null,
+    "current": null,
+    "pages": null,
+    "orders": null,
+    "timestamp": 1773652632931,
+    "traceId": "e7e725769501418692f093290b9abf60.93.17736526329215035"
+}

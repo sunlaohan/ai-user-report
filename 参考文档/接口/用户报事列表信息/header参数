@@ -1,0 +1,20 @@
+export interface Request {
+    /**
+     * 集团编码
+     */
+    "group-code"?: string;
+    /**
+     * 项目编码
+     */
+    "project-id"?: string;
+    token?: string;
+    /**
+     * 用户id
+     */
+    userId?: string;
+    /**
+     * 账号
+     */
+    userName?: string;
+    [property: string]: any;
+}
