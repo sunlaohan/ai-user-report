@@ -6,22 +6,25 @@ import { fileURLToPath, URL } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
 import fetch from 'node-fetch'
+
 // 确保正确加载.env文件并覆盖已存在的环境变量
 const envPath = path.resolve(__dirname, '.env')
-const envFileContent = fs.readFileSync(envPath, 'utf-8')
+if (fs.existsSync(envPath)) {
+  const envFileContent = fs.readFileSync(envPath, 'utf-8')
 
-// 手动解析.env文件并强制设置环境变量
-envFileContent.split('\n').forEach(line => {
-  const trimmed = line.trim()
-  if (trimmed && !trimmed.startsWith('#')) {
-    const [key, ...valueParts] = trimmed.split('=')
-    if (key && valueParts.length > 0) {
-      const value = valueParts.join('=').trim()
-      process.env[key.trim()] = value
-      console.log(`Set env: ${key.trim()} = ${value.substring(0, 20)}...`)
+  // 手动解析.env文件并强制设置环境变量
+  envFileContent.split('\n').forEach(line => {
+    const trimmed = line.trim()
+    if (trimmed && !trimmed.startsWith('#')) {
+      const [key, ...valueParts] = trimmed.split('=')
+      if (key && valueParts.length > 0) {
+        const value = valueParts.join('=').trim()
+        process.env[key.trim()] = value
+        console.log(`Set env: ${key.trim()} = ${value.substring(0, 20)}...`)
+      }
     }
-  }
-})
+  })
+}
 
 console.log('Final MODEL_ID:', process.env.MODEL_ID)
 
