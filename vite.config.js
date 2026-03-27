@@ -473,7 +473,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    https: true,
+    https: false,
     proxy: {
       '/mid-permission-server': {
         target: 'https://qa.meos.center',
