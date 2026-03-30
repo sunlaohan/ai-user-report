@@ -35,9 +35,12 @@ const router = createRouter({
 })
 
 // 路由守卫：有缓存手机号则视为已登录，跳过登录页；无则拦截受保护页面
+// 同时检查 LLM 配置
 router.beforeEach((to) => {
   const hasSession = !!localStorage.getItem('userPhone')
-  if (to.name === 'login' && hasSession) {
+  const hasLlmConfig = !!localStorage.getItem('llmConfig')
+
+  if (to.name === 'login' && hasSession && hasLlmConfig) {
     return { name: 'home' }
   }
   if (to.name !== 'login' && !hasSession) {

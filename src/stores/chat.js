@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useChatStore = defineStore('chat', () => {
   const MAX_HISTORY_MESSAGES = 8
@@ -11,14 +11,50 @@ export const useChatStore = defineStore('chat', () => {
   const isRecording = ref(false)
   const inputMode = ref('voice')
   const isAiMode = ref(true)
-  const _savedPhone = localStorage.getItem('userPhone') || '13880582649' // 测试用手机号
-  const _savedToken = localStorage.getItem('userToken') || 'eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VUeXBlIjoxLCJhdWQiOiJlbXMtc2Fhcy1jbGllbnQiLCJzdWIiOiJlbXMtdXNlciIsImFjY291bnRJZCI6IjE2OTIzMjIyNDM2NTgiLCJhY2NvdW50TmFtZSI6IuWtmeejiiIsInBob25lIjoiMTM4ODA1ODI2NDkiLCJpc3MiOiJlbXMiLCJqdGkiOiIwMzY1Mzk5My0yYjc5LTQ3NGItYWM1Yy03ZmNlNTA3NzUyYzIifQ._VeBNk7fMfYIBnJnuRFtQxh372kEEH60NPR5UkxaYWM' // 测试用 token
+  const _savedPhone = localStorage.getItem('userPhone') || ''
+  const _savedToken = localStorage.getItem('userToken') || ''
   const isLoggedIn = ref(!!(_savedPhone && _savedToken))
   const userPhone = ref(_savedPhone)
   const userToken = ref(_savedToken)
   const tenantData = ref(null)
   const bfListData = ref(null)
   const currentReportDraftId = ref(1)
+
+  // ===== LLM 配置（从 localStorage 加载，跨登录保留）=====
+  function _loadLlmConfig() {
+    try {
+      const saved = localStorage.getItem('llmConfig')
+      if (saved) return JSON.parse(saved)
+    } catch (e) {
+      console.warn('Failed to load LLM config', e)
+    }
+    return null
+  }
+  const _savedLlm = _loadLlmConfig()
+  const llmProvider = ref(_savedLlm?.provider || '')
+  const llmBaseUrl = ref(_savedLlm?.baseUrl || '')
+  const llmModelId = ref(_savedLlm?.modelId || '')
+  const llmApiKey = ref(_savedLlm?.apiKey || '')
+
+  const hasLlmConfig = computed(() => {
+    return !!(llmBaseUrl.value && llmModelId.value && llmApiKey.value)
+  })
+
+  function saveLlmConfig(config) {
+    llmProvider.value = config.provider || ''
+    llmBaseUrl.value = config.baseUrl || ''
+    llmModelId.value = config.modelId || ''
+    llmApiKey.value = config.apiKey || ''
+    localStorage.setItem('llmConfig', JSON.stringify(config))
+  }
+
+  function clearLlmConfig() {
+    llmProvider.value = ''
+    llmBaseUrl.value = ''
+    llmModelId.value = ''
+    llmApiKey.value = ''
+    localStorage.removeItem('llmConfig')
+  }
 
   // 二维码上下文（登录后写入）
   const qrContext = ref({
@@ -401,7 +437,6 @@ export const useChatStore = defineStore('chat', () => {
   function login(phone, token = '', tenant = null) {
     isLoggedIn.value = true
     userPhone.value = phone
-    // 如果 token 为空，保留硬编码的默认 token
     if (token) {
       userToken.value = token
     }
@@ -416,7 +451,7 @@ export const useChatStore = defineStore('chat', () => {
     initContext()
   }
 
-  // ===== 退出登录 =====
+  // ===== 退出登录（不清除 LLM 配置，保留缓存）=====
   function logout() {
     isLoggedIn.value = false
     userPhone.value = ''
@@ -429,6 +464,7 @@ export const useChatStore = defineStore('chat', () => {
     sessionStorage.removeItem('userToken')
     localStorage.removeItem('userPhone')
     localStorage.removeItem('userToken')
+    // 注意：LLM 配置不清除，保留 localStorage 中的 llmConfig
   }
 
   // ===== 构建发送给 AI 的消息历史 =====
@@ -526,7 +562,11 @@ export const useChatStore = defineStore('chat', () => {
           messages: history,
           skill: currentSkill.value,
           userPhone: userPhone.value,
-          userToken: userToken.value
+          userToken: userToken.value,
+          // 用户配置的 LLM 凭据
+          baseUrl: llmBaseUrl.value,
+          modelId: llmModelId.value,
+          apiKey: llmApiKey.value
         })
       })
 
@@ -895,6 +935,14 @@ export const useChatStore = defineStore('chat', () => {
     currentSkill,
     fixedReportIssueTypeId: FIXED_REPORT_ISSUE_TYPE_ID,
     fixedReportIssueTypeName: FIXED_REPORT_ISSUE_TYPE_NAME,
+    // LLM 配置
+    llmProvider,
+    llmBaseUrl,
+    llmModelId,
+    llmApiKey,
+    hasLlmConfig,
+    saveLlmConfig,
+    clearLlmConfig,
     getCurrentDraftImageMessages,
     getCurrentDraftPhotos,
     getApiHeaders,

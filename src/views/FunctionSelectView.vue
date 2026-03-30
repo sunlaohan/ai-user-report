@@ -1,8 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useChatStore } from '@/stores/chat'
 import { storeToRefs } from 'pinia'
+import LlmConfigPanel from '@/components/LlmConfigPanel.vue'
+import { showToast } from '@/utils/toast'
 
 const router = useRouter()
 const chatStore = useChatStore()
@@ -10,6 +12,8 @@ const { userPhone } = storeToRefs(chatStore)
 
 const showNotice = ref(true)
 const noticeText = ref('可以后台配置的通知内容，超出换行展示')
+const showLlmPanel = ref(false)
+const llmPanelClosable = ref(false)
 
 const closeNotice = () => {
   showNotice.value = false
@@ -25,6 +29,24 @@ const maskedPhone = computed(() => {
   if (!phone || phone.length < 11) return phone
   return phone.substring(0, 3) + '****' + phone.substring(7)
 })
+
+// 页面加载时检查 LLM 配置
+onMounted(() => {
+  if (!chatStore.hasLlmConfig) {
+    llmPanelClosable.value = false
+    showLlmPanel.value = true
+  }
+})
+
+const closeLlmPanel = () => {
+  showLlmPanel.value = false
+}
+
+const handleLlmConfirm = (config) => {
+  chatStore.saveLlmConfig(config)
+  showLlmPanel.value = false
+  showToast('LLM配置保存成功')
+}
 </script>
 
 <template>
@@ -73,6 +95,14 @@ const maskedPhone = computed(() => {
         </div>
       </div>
     </div>
+
+    <!-- LLM 配置面板 -->
+    <LlmConfigPanel
+      :show="showLlmPanel"
+      :closable="llmPanelClosable"
+      @close="closeLlmPanel"
+      @confirm="handleLlmConfirm"
+    />
   </div>
 </template>
 

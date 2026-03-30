@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useChatStore } from '@/stores/chat'
 import { showToast } from '@/utils/toast'
+import LlmConfigPanel from '@/components/LlmConfigPanel.vue'
 
 const router = useRouter()
 const chatStore = useChatStore()
@@ -10,6 +11,8 @@ const phone = ref('')
 const verifyCode = ref('')
 const countdown = ref(0)
 const showWechatPanel = ref(false)
+const showLlmPanel = ref(false)
+const llmPanelClosable = ref(true)
 let timer = null
 
 const isValidPhone = computed(() => {
@@ -146,13 +149,42 @@ const handleLogin = async () => {
 
       // 保存登录信息
       chatStore.login(phone.value, token, tenantData)
-      router.push('/home')
+
+      // 检查 LLM 配置
+      if (chatStore.hasLlmConfig) {
+        // 已配置，直接进入主页
+        router.push('/home')
+      } else {
+        // 未配置，弹出配置面板（不可关闭，必须填写）
+        llmPanelClosable.value = false
+        showLlmPanel.value = true
+      }
     } else {
       showToast('验证码错误')
     }
   } catch (error) {
     console.error('Login error:', error)
     showToast('登录失败，请重试')
+  }
+}
+
+// LLM 配置面板
+const openLlmPanel = () => {
+  llmPanelClosable.value = true
+  showLlmPanel.value = true
+}
+
+const closeLlmPanel = () => {
+  showLlmPanel.value = false
+}
+
+const handleLlmConfirm = (config) => {
+  chatStore.saveLlmConfig(config)
+  showLlmPanel.value = false
+  showToast('LLM配置保存成功')
+  // 如果已登录，跳转主页
+  if (chatStore.isLoggedIn) {
+    router.push('/home')
   }
 }
 </script>
@@ -214,8 +246,21 @@ const handleLogin = async () => {
           <img src="/icons/wechat.svg" alt="微信" class="wechat-icon" />
           <span>微信授权手机号登录</span>
         </button>
+
+        <button class="llm-config-btn" @click="openLlmPanel">
+          <img src="/icons/connect.svg" alt="配置" class="llm-config-icon" />
+          <span>配置LLM信息</span>
+        </button>
       </div>
     </div>
+
+    <!-- LLM 配置面板 -->
+    <LlmConfigPanel
+      :show="showLlmPanel"
+      :closable="llmPanelClosable"
+      @close="closeLlmPanel"
+      @confirm="handleLlmConfirm"
+    />
 
     <!-- 微信授权面板 -->
     <Transition name="slide-up">
@@ -435,6 +480,34 @@ const handleLogin = async () => {
 }
 
 .wechat-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* LLM 配置按钮 */
+.llm-config-btn {
+  width: 100%;
+  height: 44px;
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: 'PingFang SC', -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  color: #1B2129;
+}
+
+.llm-config-btn:active {
+  opacity: 0.9;
+}
+
+.llm-config-icon {
   width: 18px;
   height: 18px;
 }

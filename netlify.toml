@@ -1,0 +1,51 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# 后端 API 代理
+[[redirects]]
+  from = "/mid-permission-server/*"
+  to = "https://qa.meos.center/mid-permission-server/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/fm-workorder-server/*"
+  to = "https://qa-gw.meos.net.cn/fm-workorder-server/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dtp-rwd-server/*"
+  to = "https://qa.ysbdtp.com/dtp-rwd-server/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/mid-frame-server/*"
+  to = "https://qa.meos.center/mid-frame-server/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dtp-file-server/*"
+  to = "https://qa.ysbdtp.com/dtp-file-server/:splat"
+  status = 200
+  force = true
+
+# 将 /api 请求转交到 Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Vue Router History 模式 fallback（必须放最后）
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

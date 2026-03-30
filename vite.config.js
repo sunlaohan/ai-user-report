@@ -334,9 +334,19 @@ const aiProxyPlugin = () => ({
             const skill = data.skill || 'report';
             const userPhone = data.userPhone || '';
             const userToken = data.userToken || '';
+
+            // 用户提供的 LLM 凭据（优先），退而使用环境变量
+            const clientBaseUrl = data.baseUrl || ''
+            const clientModelId = data.modelId || ''
+            const clientApiKey = data.apiKey || ''
+
+            const modelId = clientModelId || process.env.MODEL_ID
+            const apiKey = clientApiKey || process.env.API_KEY
+            const baseUrl = clientBaseUrl || 'https://ark.cn-beijing.volces.com/api/v3'
             
             console.log('=== AI Chat Request ===')
             console.log('skill:', skill)
+            console.log('LLM source:', clientModelId ? 'user-provided' : 'env-vars', 'baseUrl:', baseUrl)
             console.log('userPhone:', userPhone ? `${userPhone.substring(0, 3)}****` : 'EMPTY')
             console.log('userToken:', userToken ? `${userToken.substring(0, 10)}...` : 'EMPTY')
             console.log('Will fetch tickets:', skill === 'query' && userToken && userPhone)
@@ -412,8 +422,15 @@ const aiProxyPlugin = () => ({
               systemPrompt += `\n\n## 当前用户工单数据\n\n当前用户未登录或登录信息缺失，无法查询工单数据。请提示用户先登录后再使用查询功能。`
             }
 
+            if (!modelId || !apiKey) {
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: '缺少 MODEL_ID 或 API_KEY。请在登录页点击「配置LLM信息」进行配置。' }));
+              return;
+            }
+
             const payload = {
-              model: process.env.MODEL_ID,
+              model: modelId,
               messages: [
                 { role: 'system', content: systemPrompt },
                 ...messages
@@ -426,11 +443,15 @@ const aiProxyPlugin = () => ({
             console.log('[AI Payload] message chars:', messageChars)
             console.log('[AI Payload] total messages:', payload.messages.length)
 
-            const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+            // 构造 API 地址：baseUrl + /chat/completions
+            const apiEndpoint = baseUrl.replace(/\/+$/, '') + '/chat/completions'
+            console.log('[AI] Calling:', apiEndpoint)
+
+            const response = await fetch(apiEndpoint, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.API_KEY}`
+                'Authorization': `Bearer ${apiKey}`
               },
               body: JSON.stringify(payload)
             });
