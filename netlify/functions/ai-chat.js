@@ -191,7 +191,9 @@ async function fetchTicketDetail(orderId, token) {
         'Group-Code': 'TYXN',
         'groupcode': 'TYXN',
         'Project-Id': 'Pj9909990007',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Referer': 'https://qa.meos.center/',
+        'Origin': 'https://qa.meos.center'
       }
     })
     const data = await response.json()
@@ -214,7 +216,9 @@ async function fetchProcessRecord(orderId, token) {
         'Group-Code': 'TYXN',
         'groupcode': 'TYXN',
         'Project-Id': 'Pj9909990007',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Referer': 'https://qa.meos.center/',
+        'Origin': 'https://qa.meos.center'
       },
       body: JSON.stringify({ orderId })
     })
@@ -314,7 +318,7 @@ export async function handler(event, context) {
     let systemPrompt = getRuntimePrompt(skill)
 
     // 如果是查询模式，注入工单数据
-    if (skill === 'query' && userToken && userPhone) {
+    if (skill === 'query' && userPhone) {
       try {
         const listResponse = await fetch('https://qa-gw.meos.net.cn/fm-workorder-server/repair/list-page', {
           method: 'POST',
@@ -323,7 +327,9 @@ export async function handler(event, context) {
             'Group-Code': 'TYXN',
             'groupcode': 'TYXN',
             'Project-Id': 'Pj9909990007',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Referer': 'https://qa.meos.center/',
+            'Origin': 'https://qa.meos.center'
           },
           body: JSON.stringify({
             creatorId: userPhone,

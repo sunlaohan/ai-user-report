@@ -228,7 +228,9 @@ async function fetchTicketDetail(orderId, token) {
         'Group-Code': 'TYXN',
         'groupcode': 'TYXN',
         'Project-Id': 'Pj9909990007',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Referer': 'https://qa.meos.center/',
+        'Origin': 'https://qa.meos.center'
       }
     })
     const data = await response.json()
@@ -252,7 +254,9 @@ async function fetchProcessRecord(orderId, token) {
         'Group-Code': 'TYXN',
         'groupcode': 'TYXN',
         'Project-Id': 'Pj9909990007',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Referer': 'https://qa.meos.center/',
+        'Origin': 'https://qa.meos.center'
       },
       body: JSON.stringify({ orderId })
     })
@@ -349,14 +353,14 @@ const aiProxyPlugin = () => ({
             console.log('LLM source:', clientModelId ? 'user-provided' : 'env-vars', 'baseUrl:', baseUrl)
             console.log('userPhone:', userPhone ? `${userPhone.substring(0, 3)}****` : 'EMPTY')
             console.log('userToken:', userToken ? `${userToken.substring(0, 10)}...` : 'EMPTY')
-            console.log('Will fetch tickets:', skill === 'query' && userToken && userPhone)
+            console.log('Will fetch tickets:', skill === 'query' && userPhone)
 
             const lastUserMessage = [...messages].reverse().find(message => message.role === 'user' && message.content)
             const lastUserQuery = lastUserMessage?.content || ''
             let systemPrompt = getRuntimePrompt(skill)
 
             // 如果是查询模式，注入工单数据
-            if (skill === 'query' && userToken && userPhone) {
+            if (skill === 'query' && userPhone) {
               console.log('[Query Mode] Fetching tickets for user:', userPhone)
               try {
                 // 获取用户工单列表
@@ -368,7 +372,9 @@ const aiProxyPlugin = () => ({
                     'Group-Code': 'TYXN',
                     'groupcode': 'TYXN',
                     'Project-Id': 'Pj9909990007',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Referer': 'https://qa.meos.center/',
+                    'Origin': 'https://qa.meos.center'
                   },
                   body: JSON.stringify({
                     creatorId: userPhone,
@@ -497,7 +503,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    https: false,
+    https: true,
     proxy: {
       '/mid-permission-server': {
         target: 'https://qa.meos.center',
