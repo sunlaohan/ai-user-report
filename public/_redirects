@@ -1,1 +1,12 @@
+# API 代理通过 Serverless Function 转发
+/mid-permission-server/*  /.netlify/functions/api-proxy/mid-permission-server/:splat  200!
+/fm-workorder-server/*  /.netlify/functions/api-proxy/fm-workorder-server/:splat  200!
+/dtp-rwd-server/*  /.netlify/functions/api-proxy/dtp-rwd-server/:splat  200!
+/mid-frame-server/*  /.netlify/functions/api-proxy/mid-frame-server/:splat  200!
+/dtp-file-server/*  /.netlify/functions/api-proxy/dtp-file-server/:splat  200!
+
+# Netlify Functions
+/api/*  /.netlify/functions/:splat  200!
+
+# Vue Router History 模式 fallback（必须放最后）
 /*    /index.html   200
