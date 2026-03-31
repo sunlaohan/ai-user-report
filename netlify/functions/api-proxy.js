@@ -70,21 +70,24 @@ export async function handler(event) {
   }
 
   try {
-    // 从 path 中提取真实 API 路径
-    // URL 格式: /api/api-proxy/<actualPath>
-    // event.path 可能是 /.netlify/functions/api-proxy/mid-permission-server/xxx
-    // 或通过 redirect: /api/api-proxy/mid-permission-server/xxx
-    let apiPath = event.path
+    // 优先从 query parameter 获取目标路径（redirect 传入）
+    // 格式: /.netlify/functions/api-proxy?proxyPath=/mid-permission-server/xxx
+    let apiPath = ''
 
-    // 移除 function 路由前缀
-    const prefixes = [
-      '/.netlify/functions/api-proxy',
-      '/api/api-proxy'
-    ]
-    for (const prefix of prefixes) {
-      if (apiPath.startsWith(prefix)) {
-        apiPath = apiPath.substring(prefix.length)
-        break
+    if (event.queryStringParameters && event.queryStringParameters.proxyPath) {
+      apiPath = decodeURIComponent(event.queryStringParameters.proxyPath)
+    } else {
+      // 回退：从 event.path 中提取
+      apiPath = event.path
+      const prefixes = [
+        '/.netlify/functions/api-proxy',
+        '/api/api-proxy'
+      ]
+      for (const prefix of prefixes) {
+        if (apiPath.startsWith(prefix)) {
+          apiPath = apiPath.substring(prefix.length)
+          break
+        }
       }
     }
 
