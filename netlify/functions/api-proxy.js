@@ -119,7 +119,22 @@ export async function handler(event) {
     }
 
     // 构建目标 URL
-    const targetUrl = matchedRoute.target + apiPath
+    let targetUrl = matchedRoute.target + apiPath
+    
+    // 恢复其他 query parameters (如 GET 请求中的 ?orderId=xxx)
+    if (event.queryStringParameters) {
+      const searchParams = new URLSearchParams()
+      for (const [key, value] of Object.entries(event.queryStringParameters)) {
+        if (key !== 'proxyPath') {
+          searchParams.append(key, value)
+        }
+      }
+      const qs = searchParams.toString()
+      if (qs) {
+        targetUrl += '?' + qs
+      }
+    }
+    
     console.log('[api-proxy] Proxying to:', targetUrl)
 
     // 构建转发的 headers
