@@ -301,17 +301,13 @@ export async function handler(event, context) {
     const userPhone = data.userPhone || ''
     const userToken = data.userToken || ''
 
-    // 用户提供的 LLM 凭据（优先），退而使用环境变量
-    const clientBaseUrl = data.baseUrl || ''
-    const clientModelId = data.modelId || ''
-    const clientApiKey = data.apiKey || ''
-
-    const modelId = clientModelId || process.env.MODEL_ID
-    const apiKey = clientApiKey || process.env.API_KEY
-    const baseUrl = clientBaseUrl || 'https://ark.cn-beijing.volces.com/api/v3'
+    // 必须由用户提供 LLM 凭据，不再使用系统环境变量兜底
+    const baseUrl = data.baseUrl || 'https://ark.cn-beijing.volces.com/api/v3'
+    const modelId = data.modelId || ''
+    const apiKey = data.apiKey || ''
 
     console.log('[ai-chat] skill:', skill, 'userPhone:', userPhone ? `${userPhone.substring(0, 3)}****` : 'EMPTY')
-    console.log('[ai-chat] LLM source:', clientModelId ? 'user-provided' : 'env-vars', 'baseUrl:', baseUrl)
+    console.log('[ai-chat] LLM source: user-provided', 'baseUrl:', baseUrl)
 
     const lastUserMessage = [...messages].reverse().find(message => message.role === 'user' && message.content)
     const lastUserQuery = lastUserMessage?.content || ''
