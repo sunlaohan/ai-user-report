@@ -6,34 +6,35 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# 后端 API 代理
+# 后端 API 代理 —— 通过 Serverless Function 转发
+# Netlify 的 redirect 代理不会转发自定义 headers，所以必须用 function 代理
 [[redirects]]
   from = "/mid-permission-server/*"
-  to = "https://qa.meos.center/mid-permission-server/:splat"
+  to = "/.netlify/functions/api-proxy/mid-permission-server/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/fm-workorder-server/*"
-  to = "https://qa-gw.meos.net.cn/fm-workorder-server/:splat"
+  to = "/.netlify/functions/api-proxy/fm-workorder-server/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/dtp-rwd-server/*"
-  to = "https://qa.ysbdtp.com/dtp-rwd-server/:splat"
+  to = "/.netlify/functions/api-proxy/dtp-rwd-server/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/mid-frame-server/*"
-  to = "https://qa.meos.center/mid-frame-server/:splat"
+  to = "/.netlify/functions/api-proxy/mid-frame-server/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/dtp-file-server/*"
-  to = "https://qa.ysbdtp.com/dtp-file-server/:splat"
+  to = "/.netlify/functions/api-proxy/dtp-file-server/:splat"
   status = 200
   force = true
 
