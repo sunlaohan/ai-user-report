@@ -616,14 +616,14 @@ const currentViewerImage = computed(() => viewerImages.value[viewerIndex.value] 
 
 /* ===== Header ===== */
 .header {
-  width: 375px;
+  width: 100%;
   height: 90px;
   background: white;
   flex-shrink: 0;
 }
 
 .header-nav {
-  width: 375px;
+  width: 100%;
   height: 46px;
   position: relative;
   margin-top: 44px;
@@ -647,10 +647,10 @@ const currentViewerImage = computed(() => viewerImages.value[viewerIndex.value] 
 }
 
 .header-title {
-  width: 219px;
   height: 24px;
   position: absolute;
-  left: 78px;
+  left: 44px;
+  right: 44px;
   top: 11px;
   display: flex;
   align-items: center;
@@ -705,7 +705,7 @@ const currentViewerImage = computed(() => viewerImages.value[viewerIndex.value] 
 
 /* ===== Status Banner ===== */
 .status-banner {
-  width: 375px;
+  width: 100%;
   height: 102px;
   background: #246FE5;
   position: relative;
