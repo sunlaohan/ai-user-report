@@ -2,7 +2,7 @@
 import { useChatStore } from '@/stores/chat'
 import { storeToRefs } from 'pinia'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { convertToJpeg } from '@/utils/imageUtils'
+import { compressImage } from '@/utils/imageUtils'
 
 const chatStore = useChatStore()
 const { inputMode, isRecording } = storeToRefs(chatStore)
@@ -118,8 +118,8 @@ const handleFileChange = async (event) => {
   });
 
   try {
-    // 1.5 Convert to JPEG if needed (FMS rejects .webp etc.)
-    const uploadFile = await convertToJpeg(file);
+    // 1.5 Compress and Convert to JPEG if needed (FMS rejects .webp etc.)
+    const uploadFile = await compressImage(file);
 
     // 2. Perform full 3-step FMS upload pipeline
     const uploadResult = await chatStore.uploadImage(uploadFile);

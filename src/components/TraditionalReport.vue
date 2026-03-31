@@ -2,7 +2,7 @@
 import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import { storeToRefs } from 'pinia'
-import { convertToJpeg } from '@/utils/imageUtils'
+import { compressImage } from '@/utils/imageUtils'
 import { showToast } from '@/utils/toast'
 
 const chatStore = useChatStore()
@@ -409,7 +409,7 @@ const handleFileChange = async (event) => {
 
   isUploading.value = true
   try {
-    const uploadFile = await convertToJpeg(file)
+    const uploadFile = await compressImage(file)
     const uploadResult = await chatStore.uploadImage(uploadFile)
 
     // Create local preview URL
