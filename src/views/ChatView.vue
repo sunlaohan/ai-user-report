@@ -89,9 +89,7 @@ const toggleAiMode = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 88px;
-  padding: 0 16px;
-  padding-top: 44px;
+  padding: 24px 16px 16px;
   background-color: #FFFFFF;
   flex-shrink: 0;
   z-index: 10;
