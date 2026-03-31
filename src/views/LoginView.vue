@@ -13,6 +13,8 @@ const countdown = ref(0)
 const showWechatPanel = ref(false)
 const showLlmPanel = ref(false)
 const llmPanelClosable = ref(true)
+const isLoggingIn = ref(false)
+const isSendingCode = ref(false)
 let timer = null
 
 const isValidPhone = computed(() => {
@@ -38,8 +40,9 @@ const handleWechatDeny = () => {
 }
 
 const getVerifyCode = async () => {
-  if (!isValidPhone.value || countdown.value > 0) return
+  if (!isValidPhone.value || countdown.value > 0 || isSendingCode.value) return
   
+  isSendingCode.value = true
   try {
     const response = await fetch('/mid-permission-server/restUserService/smsSendCode', {
       method: 'POST',
@@ -70,6 +73,8 @@ const getVerifyCode = async () => {
   } catch (error) {
     console.error('Error sending verify code:', error)
     showToast('发送验证码出错')
+  } finally {
+    isSendingCode.value = false
   }
 }
 
@@ -84,8 +89,9 @@ const startCountdown = () => {
 }
 
 const handleLogin = async () => {
-  if (!canSubmit.value) return
+  if (!canSubmit.value || isLoggingIn.value) return
 
+  isLoggingIn.value = true
   try {
     // 1. 验证码检查
     const formData = new FormData()
@@ -165,6 +171,8 @@ const handleLogin = async () => {
   } catch (error) {
     console.error('Login error:', error)
     showToast('登录失败，请重试')
+  } finally {
+    isLoggingIn.value = false
   }
 }
 
@@ -225,10 +233,14 @@ const handleLlmConfirm = (config) => {
           </div>
           <button 
             class="verify-btn" 
-            :disabled="!isValidPhone || countdown > 0"
+            :class="{ 'is-loading': isSendingCode }"
+            :disabled="!isValidPhone || countdown > 0 || isSendingCode"
             @click="getVerifyCode"
           >
-            {{ countdown > 0 ? `${countdown}s后重新获取` : '获取验证码' }}
+            <svg v-if="isSendingCode" class="spinner" viewBox="0 0 50 50">
+              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+            {{ isSendingCode ? '发送中...' : (countdown > 0 ? `${countdown}s后重新获取` : '获取验证码') }}
           </button>
         </div>
       </div>
@@ -236,10 +248,14 @@ const handleLlmConfirm = (config) => {
       <div class="button-area">
         <button 
           class="login-btn" 
-          :disabled="!canSubmit"
+          :class="{ 'is-loading': isLoggingIn }"
+          :disabled="!canSubmit || isLoggingIn"
           @click="handleLogin"
         >
-          登录
+          <svg v-if="isLoggingIn" class="spinner" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+          </svg>
+          {{ isLoggingIn ? '登录中...' : '登录' }}
         </button>
 
         <button class="wechat-btn" @click="openWechatPanel">
@@ -447,6 +463,43 @@ const handleLlmConfirm = (config) => {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  animation: rotate 2s linear infinite;
+  margin-right: 8px;
+}
+
+.path {
+  stroke: currentColor;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
 }
 
 .login-btn:disabled {
